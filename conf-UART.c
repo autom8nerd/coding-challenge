@@ -39,6 +39,11 @@ int main() {
 
   cfsetispeed(&termios_p, v); // setting input speed
   cfsetospeed(&termios_p, v); // setting output speed
+
+  tcflush(fd,
+          TCIOFLUSH); // for flushing the previous ghost data sitting in the
+                      // buffer, and done before setting the new hardware values
+
   tcsetattr(fd, TCSANOW, &termios_p);
 
   char buf1[] = "Hello world \r\n";
